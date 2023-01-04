@@ -133,4 +133,13 @@ def order_list(llista, ordre="des"):
 
 # EJERCICIO 11
 def ordre_dict_by_key(diccionar, ordre, key= ""):
+    # PRE: el parámetro diccionari contiene un diccionario, el parámetro ordre solo puede ser o "des" o "asc",
+    #      el último parámetro por defecto vale "", este se usará en el caso que el diccionario contenga otros
+    #      diccionarios y querramos ordenar por un subdiccionario en concreto, pasando su key.
+    result = []
+    try:
 
+    except TypeError as e:
+        print(e)
+
+    return result
