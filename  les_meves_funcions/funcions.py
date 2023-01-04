@@ -96,12 +96,41 @@ def order_list(llista, ordre="des"):
     # POST: Devuelve el parametro llista ordenada segun el parametro ordre
     try:
         if type(llista) != list:
-            raise ValueError("The parameter llista is not a list")
+            raise ValueError("The parameter llista must to be a list")
         if ordre not in ["des", "asc"]:
             raise TypeError("The ordre must to be des or asc")
+        for i in range(1, len(llista)-1):
+            if type(llista[i]) != type(llista[i-1]):
+                raise TypeError("The list must to have the same variable type")
+
+        # BUBBLE SORT
+        for pasada in range(len(llista) - 1):
+            lista_ordenada = True
+            for i in range(len(llista) - 1 - pasada):
+
+                if ordre == "des":
+                    if llista[i] < llista[i + 1]:
+                        lista_ordenada = False
+                        aux = llista[i]
+                        llista[i] = llista[i + 1]
+                        llista[i + 1] = aux
+
+                elif ordre == "asc":
+                    if llista[i] > llista[i + 1]:
+                        lista_ordenada = False
+                        aux = llista[i]
+                        llista[i] = llista[i + 1]
+                        llista[i + 1] = aux
+
+            if lista_ordenada:
+                break
 
     except ValueError as e:
         print(e)
     except TypeError as e:
         print(e)
+    return llista
+
+# EJERCICIO 11
+def ordre_dict_by_key(diccionar, ordre, key= ""):
 
