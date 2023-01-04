@@ -23,4 +23,3 @@ def new_nif(new='yes'):
 
     return newnif.upper()
 
-print(new_nif())
