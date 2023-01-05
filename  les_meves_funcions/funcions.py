@@ -1,4 +1,23 @@
 from dades import *
+
+#Ex 1
+def getOpt(textOpts="",inputOptText="",rangeList=[],dictionary={},exceptions=[]):
+    correct = False
+    while not correct:
+        print(textOpts)
+        opc = input(inputOptText)
+        try:
+            if opc not in rangeList or opc not in exceptions:
+                raise ValueError('Invalid option')
+            else:
+
+
+
+
+
+
+
+
 #Ex 3
 def new_nif(new='yes'):
     correct = False
@@ -23,3 +42,4 @@ def new_nif(new='yes'):
 
     return newnif.upper()
 
+#Ex 6
