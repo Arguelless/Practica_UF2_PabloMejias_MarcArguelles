@@ -98,7 +98,7 @@ def order_list(llista, ordre="des"):
         if type(llista) != list:
             raise ValueError("The parameter llista must to be a list")
         if ordre not in ["des", "asc"]:
-            raise TypeError("The ordre must to be des or asc")
+            raise TypeError("The parameter ordre must to be des or asc")
         for i in range(1, len(llista)-1):
             if type(llista[i]) != type(llista[i-1]):
                 raise TypeError("The list must to have the same variable type")
@@ -136,26 +136,88 @@ def ordre_dict_by_key(diccionari, ordre, key= ""):
     # PRE: el parámetro diccionari contiene un diccionario, el parámetro ordre solo puede ser o "des" o "asc",
     #      el último parámetro por defecto vale "", este se usará en el caso que el diccionario contenga otros
     #      diccionarios y querramos ordenar por un subdiccionario en concreto, pasando su key.
-    result = []
+    valores = []
+    list_clau = []
     try:
-        dict_type = 2
+        if type(diccionari) != dict:
+            raise TypeError("The parameter diccionari must be a dictionary")
+
+        list_clau = list(diccionari.keys())
+
         # Averiguamos si diccionari es del tipo 1, un diccionario con valores simples, o del tipo 2, diccionario de
         # diccionarios
+        dict_type = 2
         for i in diccionari:
             if type(diccionari[i]) != dict:
                 dict_type = 1
+
         if key != "" and dict_type == 1:
             raise TypeError("You can't introduce a key with a simple dictionary")
+
         if key == "" and dict_type == 2:
             raise TypeError("You must introduce a key if you introduce a dictionary of dictionaries")
+
+        if ordre not in ["des", "asc"]:
+            raise TypeError("The parameter ordre must to be des or asc")
+
         if dict_type == 2:
-            list_clau = list(diccionari.keys())
             list_key = list(diccionari[list_clau[0]].keys())
-            print(list_key)
+            if key not in list_key:
+                raise TypeError("The key that have you introduce doesn't exist in the dictionary")
+            for i in list_clau:
+                valores.append(diccionari[i][key])
+        else:
+            for i in list_clau:
+                valores.append(diccionari[i])
+
+        for i in range(1, len(valores)-1):
+            if type(valores[i]) != type(valores[i-1]):
+                raise TypeError("The items that you are trying to sort are diferent types")
+
+        if dict_type == 1:
+            for pasada in range(len(list_clau) - 1):
+                lista_ordenada = True
+                for i in range(len(list_clau) - 1 - pasada):
+
+                    if ordre == "des":
+                        if diccionari[list_clau[i]] < diccionari[list_clau[i + 1]]:
+                            lista_ordenada = False
+                            aux = list_clau[i]
+                            list_clau[i] = list_clau[i + 1]
+                            list_clau[i + 1] = aux
+
+                    elif ordre == "asc":
+                        if diccionari[list_clau[i]] > diccionari[list_clau[i + 1]]:
+                            lista_ordenada = False
+                            aux = list_clau[i]
+                            list_clau[i] = list_clau[i + 1]
+                            list_clau[i + 1] = aux
+                if lista_ordenada:
+                    break
+        else:
+            for pasada in range(len(list_clau) - 1):
+                lista_ordenada = True
+                for i in range(len(list_clau) - 1 - pasada):
+
+                    if ordre == "des":
+                        if diccionari[list_clau[i]][key] < diccionari[list_clau[i + 1]][key]:
+                            lista_ordenada = False
+                            aux = list_clau[i]
+                            list_clau[i] = list_clau[i + 1]
+                            list_clau[i + 1] = aux
+
+                    elif ordre == "asc":
+                        if diccionari[list_clau[i]][key] > diccionari[list_clau[i + 1]][key]:
+                            lista_ordenada = False
+                            aux = list_clau[i]
+                            list_clau[i] = list_clau[i + 1]
+                            list_clau[i + 1] = aux
+
+                if lista_ordenada:
+                    break
     except TypeError as e:
         print(e)
 
-    return result
+    return list_clau
 
 
-ordre_dict_by_key(dict_articulos, "des", "g")
