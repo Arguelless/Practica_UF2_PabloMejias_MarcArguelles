@@ -69,9 +69,25 @@ def new_item_price():
 
     return newprice
 
+#Ex 7
+def new_item_name():
+    correct = False
+    newname = ''
+    while not correct:
+        try:
+            newname = input('New Name: ')
+            if newname == ' ' * len(newname):
+                raise ValueError("The name can't contain only spaces.")
+            for i in dict_articulos:
+                if dict_articulos[i]['nombre'].casefold() == newname.casefold():
+                    raise ValueError('This item name already exists. Try another one')
 
+            correct = True
+        except ValueError as e:
+            print(e)
+            input(press)
 
-
+    return newname
 
 
 
