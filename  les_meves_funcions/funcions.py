@@ -3,19 +3,26 @@ from dades import *
 #Ex 1
 def getOpt(textOpts="",inputOptText="",rangeList=[],dictionary={},exceptions=[]):
     correct = False
+    opc = ''
     while not correct:
         print(textOpts)
         opc = input(inputOptText)
-        try:
-            if opc not in rangeList or opc not in exceptions:
-                raise ValueError('Invalid option')
-            else:
-
-
-
-
-
-
+        if opc not in dictionary:
+            try:
+                opc = int(opc)
+                if opc not in rangeList and opc not in exceptions:
+                    raise TypeError('Incorrect Option')
+                else:
+                    correct = True
+            except ValueError:
+                print('Please, introduce only numbers')
+                input(press)
+            except TypeError as e:
+                print(e)
+                input(press)
+        else:
+            correct = True
+    return opc
 
 
 #Ex 3
@@ -42,4 +49,29 @@ def new_nif(new='yes'):
 
     return newnif.upper()
 
+
 #Ex 6
+def new_item_price():
+    correct = False
+    newprice = ''
+    while not correct:
+        try:
+            newprice = int(input('New Price: '))
+            if newprice < 0:
+                raise AssertionError('Please, introduce a price above 0')
+            correct = True
+        except AssertionError as e:
+            print(e)
+            input(press)
+        except ValueError:
+            print('Please, introduce only numbers')
+            input(press)
+
+    return newprice
+
+
+
+
+
+
+
