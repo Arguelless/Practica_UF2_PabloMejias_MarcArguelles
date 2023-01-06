@@ -132,14 +132,30 @@ def order_list(llista, ordre="des"):
     return llista
 
 # EJERCICIO 11
-def ordre_dict_by_key(diccionar, ordre, key= ""):
+def ordre_dict_by_key(diccionari, ordre, key= ""):
     # PRE: el parámetro diccionari contiene un diccionario, el parámetro ordre solo puede ser o "des" o "asc",
     #      el último parámetro por defecto vale "", este se usará en el caso que el diccionario contenga otros
     #      diccionarios y querramos ordenar por un subdiccionario en concreto, pasando su key.
     result = []
     try:
-
+        dict_type = 2
+        # Averiguamos si diccionari es del tipo 1, un diccionario con valores simples, o del tipo 2, diccionario de
+        # diccionarios
+        for i in diccionari:
+            if type(diccionari[i]) != dict:
+                dict_type = 1
+        if key != "" and dict_type == 1:
+            raise TypeError("You can't introduce a key with a simple dictionary")
+        if key == "" and dict_type == 2:
+            raise TypeError("You must introduce a key if you introduce a dictionary of dictionaries")
+        if dict_type == 2:
+            list_clau = list(diccionari.keys())
+            list_key = list(diccionari[list_clau[0]].keys())
+            print(list_key)
     except TypeError as e:
         print(e)
 
     return result
+
+
+ordre_dict_by_key(dict_articulos, "des", "g")
