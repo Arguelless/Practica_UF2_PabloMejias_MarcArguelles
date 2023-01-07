@@ -1,4 +1,4 @@
-from dades import *
+from les_meves_funcions.dades import *
 
 #Ex 1
 def getOpt(textOpts="",inputOptText="",rangeList=[],dictionary={},exceptions=[]):

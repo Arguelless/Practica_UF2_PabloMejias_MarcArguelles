@@ -35,3 +35,16 @@ compra_cliente = {"AA32E": "34343434H", "AB37Z": "34343434H", "CF13U": "78787878
 letrasDni = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N",
              "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
 press = "\nPress any key to continue\n"
+
+main = '\n---MAIN MENU---\n1)Items\n2)Purchases\n3)Customers\n4)Exit'
+itemmenu = '\n---ITEMS MENU---\n1)New Item\n2)Modify Item\n3)Find Item\n4)List Item\n5)Go Back'
+menumodify = '\n---MENU MODIFY ITEMS---\n1)Name\n2)Stock\n3)Price\n4)Show Item\n5)Main Menu\n6)Go Back'
+menufinditem = '\n---MENU FIND ITEMS---\n1)Find Item by ID\n2)Find Item by Name\n3)Main Menu\n4)Go Back'
+menulistitem = '\n---MENU LIST ITEMS---\n1)List by ID\n2)List by Name\n3)List by Stock\n4)List 3 Best Selling Items\n' \
+               '5)List 3 Least Sold Items\n6)Main Menu\n7)Go Back'
+purchasemenu = '\n---PURCHASES MENU---\n1)Find Purchase\n2)List Purchases\n3)New Purchase\n4)Go Back'
+customermenu = '\n---CUSTOMERS MENU---\n1)New Customer\n2)Find Customer\n3)Go Back'
+menuListPurchase = "\n---MENU LIST PURCHASE---\n1)List all purchases\n2)List purchases that contain some item\n3)Go back\n4)Main menu"
+menuCustFind = "\n---Menu Find Customers---\n1)Find by NIF\n2)Find by name\n3)Find top 3 highest spending customers\n4)Main menu\n5)Go back"
+menuShowCust = "\n---Menu show customer's purchases---\n1)Show purchases\n2)Show detailed purchases\n3)Main menu\n4)Go back"
+flecha = "->"
