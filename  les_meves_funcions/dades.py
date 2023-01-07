@@ -31,3 +31,7 @@ cliente_compra = {"34343434H": ["AA32E", "AB37Z","SG345"], "78787878K": ["CF13U"
 
 compra_cliente = {"AA32E": "34343434H", "AB37Z": "34343434H", "CF13U": "78787878K", "KL11T": "78787878K",
  "ST234": "39292939S", "NL345": "53423454C","SG345" : "34343434H","SU798":"87654334T"}
+
+letrasDni = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N",
+             "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
+press = "\nPress any key to continue\n"
