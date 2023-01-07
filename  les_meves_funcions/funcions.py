@@ -2,6 +2,12 @@ from dades import *
 
 #Ex 1
 def getOpt(textOpts="",inputOptText="",rangeList=[],dictionary={},exceptions=[]):
+    # PRE:  Al parámetro textOpts se le pasa el string con las opciones del manú
+    #       Al parámetro inputOpt se le pasa el string con la frase que pide que escojamos una opción
+    #       El parámetro RangeList contiene las opciones contempladas por el menu
+    #       El parámetro exceptions contiene las posibles excepciones que pueden generarse
+    # POST: Devolverá un valor de RangeList si la selección es correcta y devolverá un valor de exceptions si ha ocurrido
+    #       un error
     correct = False
     opc = ''
     while not correct:
@@ -44,6 +50,9 @@ def new_tfn():
 
 #Ex 3
 def new_nif(new='yes'):
+    # PRE: Recibe un parámetro opcional new, el cual sirve para saber si es un NIF nuevo o no
+    #       También pedirá introducir un NIF
+    # POST: Devuelve un NIF válido
     correct = False
     newnif = ''
     while not correct:
@@ -115,6 +124,9 @@ def new_item_stock():
 
 #Ex 6
 def new_item_price():
+    # PRE: No recibe ningun parámetro. La función pide un precio de artículo que sea un entero y postivo.
+    # POST: Devuelve un precio válido
+
     correct = False
     newprice = ''
     while not correct:
@@ -134,6 +146,8 @@ def new_item_price():
 
 #Ex 7
 def new_item_name():
+    # PRE: No recibe ningun parámetro. La función pide un nombre de artículo que no exista y que no esté vacío.
+    # POST: Devuelve un nombre válido
     correct = False
     newname = ''
     while not correct:
@@ -178,8 +192,9 @@ def find_item_id():
 
 # EJERCICIO 9
 def print_item(id,**values):
-    # PRE:
-    # POST:
+    # PRE: Recibe el parámetro fijo id, que contiene la id del producto. Luego puede recibir parametros arbitrarios
+    #      para modificar algúna característica del artículo
+    # POST: Muestra todas las características del artículo
     list_id = list(dict_articulos.keys())
     list_prop = list(dict_articulos[list_id[0]].keys())
     try:
@@ -343,5 +358,3 @@ def ordre_dict_by_key(diccionari, ordre, key= ""):
         print(e)
 
     return list_clau
-
-print_item(34, stock="Pablo")
