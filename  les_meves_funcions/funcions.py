@@ -89,5 +89,3 @@ def new_item_name():
 
     return newname
 
-
-
