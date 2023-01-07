@@ -93,6 +93,8 @@ def new_item_id():
 
 # EJERCICIO 5
 def new_item_stock():
+    # PRE: No recibe ningun parámetro. La función pide un stock de artículo que sea un entero y postivo.
+    # POST: Devuelve un stock válido
     correct = False
     stock = 0
     while not correct:
@@ -175,7 +177,40 @@ def find_item_id():
     return ID
 
 # EJERCICIO 9
+def print_item(id,**values):
+    # PRE:
+    # POST:
+    list_id = list(dict_articulos.keys())
+    list_prop = list(dict_articulos[list_id[0]].keys())
+    try:
+        if id not in list_id:
+            raise ValueError("The ID that you have introduce doesn't exist")
+        for key in values:
+            if key not in list_prop:
+                raise ValueError("The key {} doesn't exist in the dictionary".format(key))
+        if len(values) == 0:
+            mostrar = "ID".ljust(15) + " "*5 + str(id).rjust(30) + "\n"
+            mostrar += "Name".ljust(15) + " "*5 + dict_articulos[id]["nombre"].rjust(30) + "\n"
+            mostrar += "Stock".ljust(15) + " "*5 + str(dict_articulos[id]["stock"]).rjust(30) + "\n"
+            mostrar += "Price".ljust(15) + " " *5 + str(dict_articulos[id]["precio"]).rjust(30)
+        else:
+            mostrar = "ID".ljust(15) + " " * 5 + str(id).rjust(30) + "\n"
+            if "nombre" in values:
+                mostrar += "Name".ljust(15) + " " * 5 + values["nombre"].rjust(30) + "\n"
+            else:
+                mostrar += "Name".ljust(15) + " " * 5 + dict_articulos[id]["nombre"].rjust(30) + "\n"
+            if "stock" in values:
+                mostrar += "Stock".ljust(15) + " " * 5 + str(values["stock"]).rjust(30) + "\n"
+            else:
+                mostrar += "Stock".ljust(15) + " " * 5 + str(dict_articulos[id]["stock"]).rjust(30) + "\n"
+            if "precio" in values:
+                mostrar += "Price".ljust(15) + " " * 5 + str(values["precio"]).rjust(30)
+            else:
+                mostrar += "Price".ljust(15) + " " * 5 + str(dict_articulos[id]["precio"]).rjust(30)
+        print(mostrar)
 
+    except ValueError as e:
+        print(e)
 
 
 # EJERCICIO 10
@@ -309,3 +344,4 @@ def ordre_dict_by_key(diccionari, ordre, key= ""):
 
     return list_clau
 
+print_item(34, stock="Pablo")
