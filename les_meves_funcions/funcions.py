@@ -57,7 +57,7 @@ def new_nif(new='yes'):
     newnif = ''
     while not correct:
         try:
-            newnif = input('Introduce the new NIF: ')
+            newnif = input('Introduce the NIF: ')
             if not len(newnif) == 9:
                 raise ValueError('Invalid NIF length')
             elif not newnif[:8].isdigit():
@@ -66,9 +66,11 @@ def new_nif(new='yes'):
                 raise ValueError('Invalid NIF letter')
             elif not letrasDni[int(newnif[:8]) % 23].casefold() == newnif[8].casefold():
                 raise ValueError('Incorrect NIF letter')
-            elif newnif.upper() in dict_clientes:
-                if new == 'yes':
-                    raise ValueError('That NIF already exists in the database')
+            elif newnif.upper() in dict_clientes and new == 'yes':
+                raise ValueError('That NIF already exists in the database')
+            elif newnif.upper() not in dict_clientes and new != 'yes':
+                raise ValueError("There is not customer with dni", newnif.upper())
+
             correct = True
         except ValueError as e:
             print(e)

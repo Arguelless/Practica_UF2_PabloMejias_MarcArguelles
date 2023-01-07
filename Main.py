@@ -314,38 +314,15 @@ while not salir:
         if option == 1:
             # CREAMOS NUEVO CLIENTE
             print(capNewCust)
-            error = True
-            DNI = ""
             NAME = ""
-            TELF = ""
 
             # COMPROBAMOS EL DNI
             # CREAMOS UNA LISTA DE DNI's
             list_DNI = list(dict_clientes.keys())
-            while error:
-                DNI = input("Enter new NIF:")
-                if len(DNI) != 9:
-                    print("Incorrect length\n")
-                    input(press)
-                elif not DNI[:8].isdigit():
-                    print("The first 8 characters of DNI are numbers\n")
-                    input(press)
-                elif not DNI[8].isalpha():
-                    print("Dni has to end with a letter\n")
-                    input(press)
-                elif not letrasDni[int(DNI[:8]) % 23].casefold() == DNI[8].casefold():
-                    print("Incorrect DNI letter\n")
-                    input(press)
-                elif DNI.upper() in list_DNI:
-                    print("There is already a client with that NIF\n")
-                    input(press)
-                else:
-                    print("DNI is correct\n")
-                    error = False
-                    input(press)
-            error = True
 
+            DNI = new_nif(new='yes')
             # COMPROBAMOS EL NOMBRE
+            error = True
             while error:
                 NAME = input("Name of the new customer:")
                 if not NAME.isalpha():
@@ -353,17 +330,9 @@ while not salir:
                 else:
                     error = False
             error = True
+            TELF = new_tfn()
 
-            # COMPROBAMOS TELF
-            while error:
-                TELF = input("Tfn of the new customer:")
-                if not TELF.isdigit():
-                    print("The Tfn character are numbers")
-                elif len(TELF) != 9:
-                    print("The length of the Tfn is 9")
-                else:
-                    error = False
-            error = True
+
 
             # MOSTRAMOS MENSAJE DE LOS DATOS INTRODUCIDOS
             print("Do you want to create the new customer? Y/y=yes:")
@@ -394,41 +363,18 @@ while not salir:
     while menu32:
         option = getOpt(menuCustFind, flecha, [1, 2, 3, 4, 5])
         if option == 1:
-            #BUSCAMOS POR DNI
-            error = True
-            # CREAMOS UNA LISTA DE DNI's
-            list_DNI = list(dict_clientes.keys())
-            #COMPROBAMOS EL DNI
-            while error:
-                DNI = input("NIF to find:")
+                DNI = new_nif(new='no')
+                #MOSTRAMOS LOS DATOS DE LA PERSONA
+                error = False
+                seq = "\n" + "NIF".ljust(5) + " "*5 + DNI.rjust(20) + "\n"
+                seq += "Name".ljust(5) + " "*5 + dict_clientes[DNI]["nombre"].rjust(20) + "\n"
+                seq += "Tfn".ljust(5) + " "*5 + dict_clientes[DNI]["telefono"].rjust(20) + "\n"
+                DNI_glob = DNI
+                print(seq)
                 input(press)
-                if len(DNI) != 9:
-                    print("Incorrect length\n")
-                    input(press)
-                elif not DNI[:8].isdigit():
-                    print("The first 8 characters of DNI are numbers\n")
-                    input(press)
-                elif not DNI[8].isalpha():
-                    print("Dni has to end with a letter\n")
-                    input(press)
-                elif not letrasDni[int(DNI[:8])%23].casefold() == DNI[8].casefold():
-                    print("Incorrect DNI letter\n")
-                    input(press)
-                elif DNI not in list_DNI:
-                    error = False
-                    print("There is not customer with dni", DNI)
-                else:
-                    #MOSTRAMOS LOS DATOS DE LA PERSONA
-                    error = False
-                    seq = "\n" + "NIF".ljust(5) + " "*5 + DNI.rjust(20) + "\n"
-                    seq += "Name".ljust(5) + " "*5 + dict_clientes[DNI]["nombre"].rjust(20) + "\n"
-                    seq += "Tfn".ljust(5) + " "*5 + dict_clientes[DNI]["telefono"].rjust(20) + "\n"
-                    DNI_glob = DNI
-                    print(seq)
-                    input(press)
-                    #NOS VAMOS AL MENU 321
-                    menu32 = False
-                    menu321 = True
+                #NOS VAMOS AL MENU 321
+                menu32 = False
+                menu321 = True
         elif option == 2:
             #CABECERA
             cabName = "NIF".ljust(10) + " "*10 + "Name".ljust(19) + " " + "TFN".ljust(9) + "\n" + "="*49 + '\n'
