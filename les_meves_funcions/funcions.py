@@ -275,6 +275,7 @@ def ordre_dict_by_key(diccionari, ordre, key= ""):
     # PRE: el parámetro diccionari contiene un diccionario, el parámetro ordre solo puede ser o "des" o "asc",
     #      el último parámetro por defecto vale "", este se usará en el caso que el diccionario contenga otros
     #      diccionarios y querramos ordenar por un subdiccionario en concreto, pasando su key.
+    # POST: Devuelve una lista con las keys del diccionario ordenadas por el valor escogido en key.
     valores = []
     list_clau = []
     try:

@@ -48,3 +48,20 @@ menuListPurchase = "\n---MENU LIST PURCHASE---\n1)List all purchases\n2)List pur
 menuCustFind = "\n---Menu Find Customers---\n1)Find by NIF\n2)Find by name\n3)Find top 3 highest spending customers\n4)Main menu\n5)Go back"
 menuShowCust = "\n---Menu show customer's purchases---\n1)Show purchases\n2)Show detailed purchases\n3)Main menu\n4)Go back"
 flecha = "->"
+cabecerafinditem = '=' * 64 + '\n' + 'ID'.rjust(4) + '  ' + 'Name'.ljust(40) + ' ' + 'Stock'.rjust(8) + ' ' + \
+                   'Price'.rjust(8) + '\n' + '=' * 64 + '\n'
+cabeceraListAll = "\n" + "PURCHASE_ID".ljust(11) + " " * 10 + "CUSTOMER".ljust(25) + " " * 7 + "DATE".rjust(
+    8) + " " * 8 + "TOTAL_PURCHASES\n"
+cabeceraListAll += "=" * 84
+
+cabeceraListCont = "\n" + "ID".ljust(5) + " " * 5 + "CUSTOMER".ljust(18) + " " * 5 + "ID_ITEM".rjust(7)
+cabeceraListCont += " " * 2 + "NAME_ITEM".ljust(30) + " " * 5 + "AMOUNT".rjust(6) + " " * 5 + "PRICE".rjust(5)
+cabeceraListCont += "\n" + "=" * 93
+capNewCust = "---NEW CUSTOMER---"
+
+bestitems = 'Three best selling items'.center(76, '=') + '\n' + 'ID'.rjust(4) + '  ' + 'Name'.ljust(
+    40) + ' ' + 'Stock'.rjust(8) + ' ' + \
+            'Price'.rjust(8) + '  ' + 'Items sold'.rjust(10) + '\n' + '=' * 76 + '\n'
+worstitems = 'Three least selling items'.center(76, '=') + '\n' + 'ID'.rjust(4) + '  ' + 'Name'.ljust(
+    40) + ' ' + 'Stock'.rjust(8) + ' ' + \
+             'Price'.rjust(8) + '  ' + 'Items sold'.rjust(10) + '\n' + '=' * 76 + '\n'

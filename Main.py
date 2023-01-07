@@ -41,32 +41,11 @@ while not salir:
 
         if option == 1:
             error = True
-            newid = ''
-            while error:
-                newid = input('ID of the new item: ')
-                if not newid.isnumeric():
-                    print(errornumeric)
-                elif int(newid) in dict_articulos:
-                    print('That ID already exists, try another one.')
-                else:
-                    error = False
-            newid = int(newid)
-            newname = input("Item's name: ")
-            while not newname.isalnum():
-                print('Invalid name')
-                newname = input("Item's name: ")
-            newstock = input('Items in stock: ')
-            while not newstock.isnumeric():
-                print(errornumeric)
-                newstock = input('Items in stock: ')
-            newstock = int(newstock)
-            newprice = input('Price of the new item: ')
-            while not newprice.isnumeric():
-                print(errornumeric)
-                newprice = input('Price of the new item: ')
-            newprice = int(newprice)
-            print('ID: {}\nName: {}\nStock: {}\nPrice: {}\nSave new Item? Y/y = Yes.'.format(newid, newname, newstock,
-                                                                                             newprice))
+            newid = new_item_id()
+            newname = new_item_name()
+            newstock = new_item_stock()
+            newprice = new_item_price()
+            print('ID: {}\nName: {}\nStock: {}\nPrice: {}\nSave new Item? Y/y = Yes.'.format(newid, newname, newstock, newprice))
             answer = input('Answer: ')
             if answer.casefold() == 'y':
                 print('Item saved!!')
@@ -139,20 +118,16 @@ while not salir:
         option = getOpt(menufinditem, flecha, [1, 2, 3, 4])
 
         if option == 1:
-            itemid = input('ID to find: ')
-            while not itemid.isnumeric():
-                print('ID are only numerics.')
-                input(press)
-                itemid = input('ID to find: ')
-            itemid = int(itemid)
+            itemid = find_item_id()
+
             if itemid in dict_articulos:
-                print(cabecerafinditem + str(itemid).rjust(4) + '  ' + dict_articulos[itemid].get('nombre').ljust(40) +
+                print(cabecerafinditem + str(itemid).rjust(4) + ' ' + dict_articulos[itemid].get('nombre').ljust(40) +
                       ' ' + str(dict_articulos[itemid].get('stock')).rjust(8) + ' ' +
                       str(dict_articulos[itemid].get('precio')).rjust(8) + '\n')
-                input(press)
             else:
-                print('There are no items with that ID.\n')
-                input(press)
+                print(cabecerafinditem, 'There are no items with that ID.\n', sep="", end="")
+
+            input(press)
 
         elif option == 2:
             itemname = input('What to look for: ')
@@ -176,29 +151,20 @@ while not salir:
             menu1 = True
 
     while menu14:
-        option = getOpt(purchasemenu, flecha, [1, 2, 3, 4, 5, 6, 7])
+        option = getOpt(menulistitem, flecha, [1, 2, 3, 4, 5, 6, 7])
         cadena = str()
         if option == 1:
             llista = list(dict_articulos)
-            mida_llista = len(llista)
-            for i in range(mida_llista - 1):
-                for j in range(0, mida_llista - i - 1):
-                    if llista[j] > llista[j + 1]:
-                        llista[j], llista[j + 1] = llista[j + 1], llista[j]
-
+            llista = order_list(llista, "asc")
             for idd in llista:
                 cadena += (str(idd).rjust(4) + '  ' + dict_articulos[idd].get('nombre').ljust(40)
                            + ' ' + str(dict_articulos[idd].get('stock')).rjust(8) + ' ' +
                            str(dict_articulos[idd].get('precio')).rjust(8) + '\n')
             print(cabecerafinditem + cadena)
             input(press)
+
         elif option == 2:
-            llista = list(dict_articulos)
-            mida_llista = len(llista)
-            for i in range(mida_llista - 1):
-                for j in range(0, mida_llista - i - 1):
-                    if dict_articulos[llista[j]].get('nombre').casefold() > dict_articulos[llista[j + 1]].get('nombre').casefold():
-                        llista[j], llista[j + 1] = llista[j + 1], llista[j]
+            llista = ordre_dict_by_key(dict_articulos, "asc", "nombre")
 
             for idd in llista:
                 cadena += (str(idd).rjust(4) + '  ' + dict_articulos[idd].get('nombre').ljust(40)
@@ -206,13 +172,9 @@ while not salir:
                            str(dict_articulos[idd].get('precio')).rjust(8) + '\n')
             print(cabecerafinditem + cadena)
             input(press)
+
         elif option == 3:
-            llista = list(dict_articulos)
-            mida_llista = len(llista)
-            for i in range(mida_llista - 1):
-                for j in range(0, mida_llista - i - 1):
-                    if dict_articulos[llista[j]].get('stock') > dict_articulos[llista[j + 1]].get('stock'):
-                        llista[j], llista[j + 1] = llista[j + 1], llista[j]
+            llista = ordre_dict_by_key(dict_articulos, "asc", "stock")
 
             for idd in llista:
                 cadena += (str(idd).rjust(4) + '  ' + dict_articulos[idd].get('nombre').ljust(40)
@@ -220,6 +182,7 @@ while not salir:
                            str(dict_articulos[idd].get('precio')).rjust(8) + '\n')
             print(cabecerafinditem + cadena)
             input(press)
+
         elif option == 4:
             contador = {}
             for i in dict_compras:
@@ -229,13 +192,9 @@ while not salir:
                     else:
                         contador[j] = dict_compras[i]['articulos'][j]
 
-            mida_llista = len(list(contador))
-            llista = list(contador)
-            for i in range(mida_llista - 1):
-                for j in range(0, mida_llista - i - 1):
-                    if contador.get(llista[j]) > contador.get(llista[j + 1]):
-                        llista[j], llista[j + 1] = llista[j + 1], llista[j]
-            for idd in llista[:-4:-1]:
+            llista = ordre_dict_by_key(contador, "des")
+
+            for idd in llista[:3]:
                 cadena += (str(idd).rjust(4) + '  ' + dict_articulos[idd].get('nombre').ljust(40)
                            + ' ' + str(dict_articulos[idd].get('stock')).rjust(8) + ' ' +
                            str(dict_articulos[idd].get('precio')).rjust(8) + '  ' + str(contador.get(idd)).rjust(10) + '\n')
@@ -251,12 +210,7 @@ while not salir:
                     else:
                         contador[j] = dict_compras[i]['articulos'][j]
 
-            mida_llista = len(list(contador))
-            llista = list(contador)
-            for i in range(mida_llista - 1):
-                for j in range(0, mida_llista - i - 1):
-                    if contador.get(llista[j]) > contador.get(llista[j + 1]):
-                        llista[j], llista[j + 1] = llista[j + 1], llista[j]
+            llista = ordre_dict_by_key(contador, "asc")
             for idd in llista[:3]:
                 cadena += (str(idd).rjust(4) + '  ' + dict_articulos[idd].get('nombre').ljust(40)
                            + ' ' + str(dict_articulos[idd].get('stock')).rjust(8) + ' ' +
@@ -314,44 +268,36 @@ while not salir:
         elif option == 2:
             # CREAMOS UNA LISTA CON TODAS LAS ID'S DE LOS ARTICULOS
             ID_list = list(dict_articulos.keys())
-            option = input("ITEM ID:")
+            option = find_item_id()
 
-            if not option.isdigit():
-                # COMPROBAMOS QUE LA OPCION NO SEA UN NUMERO
-                print("Please, introduce only numbers")
-            elif not int(option) in ID_list:
-                # COMPROBAMOS QUE LA ID EXISTE
-                print("There is not item with ID:", option)
-            else:
-                option = int(option)
-                # ITERAMOS TODAS LAS COMPRAS
-                for id_compra in dict_compras:
-                    #Creamos una lista con todas las ID's de los articulos de la compra
-                    lista_aux = list(dict_compras[id_compra]["articulos"].keys())
-                    #COMPROBAMOS SI LA ID INTRODUCIDA (option) ESTA EN LA COMPRA
-                    if option in lista_aux:
-                        print(cabeceraListCont)
-                        seq = id_compra.ljust(5) + " "*5 + dict_clientes[compra_cliente[id_compra]]["nombre"].ljust(18)
-                        seq += " "*5
-                        primero = True
-                        total = 0
-                        # ITERAMOS LA CANTIDAD DE ARTICULOS DE LA COMPRA
-                        for articulo in dict_compras[id_compra]["articulos"]:
-                            # SI ES EL PRIMER ARTICULO DE LA COMPRA TENDRA UNA JUSTIFICACIÓN DISTINTA POR ESO LO SEPARAMOS
-                            if primero:
-                                total += dict_articulos[articulo]["precio"] * dict_compras[id_compra]["articulos"][articulo]
-                                primero = False
-                                seq += str(articulo).rjust(7) + " "*2 + dict_articulos[articulo]["nombre"].ljust(30)
-                                seq += " "*5 + str(dict_compras[id_compra]["articulos"][articulo]).rjust(6)
-                                seq += " "*5 + str(dict_articulos[articulo]["precio"]).rjust(5) +"\n"
-                            else:
-                                total += dict_articulos[articulo]["precio"] * dict_compras[id_compra]["articulos"][articulo]
-                                seq += str(articulo).rjust(40) + " " * 2 + dict_articulos[articulo]["nombre"].ljust(30)
-                                seq += " " * 5 + str(dict_compras[id_compra]["articulos"][articulo]).rjust(6)
-                                seq += " " * 5 + str(dict_articulos[articulo]["precio"]).rjust(5) +"\n"
-                        seq += "-"*93 + "\n" + "TOTAL" + str(total).rjust(88) + "\n"
-                        print(seq)
-                input(press)
+            # ITERAMOS TODAS LAS COMPRAS
+            for id_compra in dict_compras:
+                #Creamos una lista con todas las ID's de los articulos de la compra
+                lista_aux = list(dict_compras[id_compra]["articulos"].keys())
+                #COMPROBAMOS SI LA ID INTRODUCIDA (option) ESTA EN LA COMPRA
+                if option in lista_aux:
+                    print(cabeceraListCont)
+                    seq = id_compra.ljust(5) + " "*5 + dict_clientes[compra_cliente[id_compra]]["nombre"].ljust(18)
+                    seq += " "*5
+                    primero = True
+                    total = 0
+                    # ITERAMOS LA CANTIDAD DE ARTICULOS DE LA COMPRA
+                    for articulo in dict_compras[id_compra]["articulos"]:
+                        # SI ES EL PRIMER ARTICULO DE LA COMPRA TENDRA UNA JUSTIFICACIÓN DISTINTA POR ESO LO SEPARAMOS
+                        if primero:
+                            total += dict_articulos[articulo]["precio"] * dict_compras[id_compra]["articulos"][articulo]
+                            primero = False
+                            seq += str(articulo).rjust(7) + " "*2 + dict_articulos[articulo]["nombre"].ljust(30)
+                            seq += " "*5 + str(dict_compras[id_compra]["articulos"][articulo]).rjust(6)
+                            seq += " "*5 + str(dict_articulos[articulo]["precio"]).rjust(5) +"\n"
+                        else:
+                            total += dict_articulos[articulo]["precio"] * dict_compras[id_compra]["articulos"][articulo]
+                            seq += str(articulo).rjust(40) + " " * 2 + dict_articulos[articulo]["nombre"].ljust(30)
+                            seq += " " * 5 + str(dict_compras[id_compra]["articulos"][articulo]).rjust(6)
+                            seq += " " * 5 + str(dict_articulos[articulo]["precio"]).rjust(5) +"\n"
+                    seq += "-"*93 + "\n" + "TOTAL" + str(total).rjust(88) + "\n"
+                    print(seq)
+            input(press)
 
         elif option == 3:
             menu22 = False
@@ -531,17 +477,9 @@ while not salir:
                     #ACTUALIZAMOS EL DICCIONARIO
                     dict_total.update({dni: total})
 
-                #ORDENAMOS LA LISTA DE DNI'S DE CLIENTES SEGUN SU NUMERO TOTAL DE DINERO GASTADO, DE MAYOR A MENOR
-                for pasada in range(len(list_DNI) - 1):
-                    lista_ordenada = True
-                    for i in range(len(list_DNI) - 1 - pasada):
-                        if dict_total[list_DNI[i]] < dict_total[list_DNI[i+1]]:
-                            lista_ordenada = False
-                            list_DNI[i], list_DNI[i+1] = list_DNI[i+1], list_DNI[i]
-                    if lista_ordenada:
-                        break
+                llista = ordre_dict_by_key(dict_total, "des")
                 #RECORREMOS LOS 3 PRIMEROS PUESTOS DE LA LISTA YA QUE SON (POR ORDEN) LOS QUE MAS HAN GASTADO
-                for DNI in list_DNI[:3]:
+                for DNI in llista[:3]:
                     seq = dict_clientes[DNI]["nombre"].ljust(18) + " "*2 + DNI.ljust(9) + " "*5 + str(dict_total[DNI]).rjust(26)
                     print(seq)
             print()
