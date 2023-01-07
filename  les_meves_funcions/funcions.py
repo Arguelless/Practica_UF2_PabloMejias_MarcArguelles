@@ -29,41 +29,39 @@ def new_item_id():
         try:
             ID = input("ID: ")
             if len(ID) == 0:
-                raise ValueError("The ID must to be a number")
+                raise AssertionError("The ID must to be a number")
             if not ID.isdigit():
                 if ID[0] == "-":
-                    raise ValueError("The ID can't be negative")
-                raise ValueError("The ID must to be a number")
+                    raise AssertionError("The ID can't be negative")
+                raise AssertionError("The ID must to be a number")
             ID = int(ID)
             if ID in list_ID:
-                raise ValueError("The ID is already in use")
+                raise AssertionError("The ID is already in use")
             correct = True
-        except ValueError as e:
+        except AssertionError as e:
             print(e)
 
     return ID
 
 # EJERCICIO 5
-def new_item_price():
-    # PRE: No recibe ningun parámetro. La función pide una precio de artículo entero positvo.
-    # POST: Devuelve una precio válido
+def new_item_stock():
     correct = False
-    price = 0
+    stock = 0
     while not correct:
         try:
-            price = input("Price: ")
-            if len(price) == 0:
-                raise ValueError("The ID must to be a number")
-            if not price.isdigit():
-                if price[0] == "-":
-                    raise ValueError("The ID can't be negative")
-                raise ValueError("The ID must to be a number")
+            stock = input("Stock: ")
+            if len(stock) == 0:
+                raise AssertionError("The stock must to be a number")
+            if not stock.isdigit():
+                if stock[0] == "-":
+                    raise AssertionError("The stock can't be negative")
+                raise AssertionError("The stock must to be a number")
+            stock = int(stock)
             correct = True
-            price = int(price)
-
-        except ValueError as e:
+        except AssertionError as e:
             print(e)
-    return price
+
+    return stock
 
 # EJERCICIO 8
 def find_item_id():
